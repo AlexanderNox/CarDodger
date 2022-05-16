@@ -6,90 +6,90 @@
             "id": "c1413c20-ac0f-4672-829d-f5f0d3b5946f",
             "actions": [
                 {
-                    "name": "Acceleration",
+                    "name": "Move",
                     "type": "Value",
-                    "id": "1df3ab59-8427-492a-8d1e-428ffff7e705",
-                    "expectedControlType": "Axis",
+                    "id": "9c45e293-1ad1-4ef9-af33-d9c934bf71c9",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Steering",
-                    "type": "Value",
-                    "id": "c1f7379a-2164-4d20-b91f-21a15df1de1c",
-                    "expectedControlType": "Axis",
+                    "name": "Drift",
+                    "type": "Button",
+                    "id": "2ed60557-63bc-48f3-af46-290fc74aa6f2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
-                    "id": "fda1cb22-a488-49be-bee1-045b12b92fb2",
-                    "path": "1DAxis",
+                    "name": "2D Vector",
+                    "id": "b010b9d2-52f5-4be7-833e-67dc4cc7fa47",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Acceleration",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Positive",
-                    "id": "9c0d8937-179b-43b9-a4aa-2f769892babf",
+                    "name": "up",
+                    "id": "48215657-1c34-4034-a078-be34b7613289",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Acceleration",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Negative",
-                    "id": "1ca2ef39-74af-4c0d-adfb-aac3e7e852fa",
+                    "name": "down",
+                    "id": "20381af5-7099-4b7a-871e-de5a66c83f0a",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Acceleration",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "893322ca-e2aa-469c-82a3-1261500fb26b",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steering",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "positive",
-                    "id": "7c84f5cb-c82b-46ad-8013-2cf6deb43911",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steering",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "negative",
-                    "id": "67e91814-ad0c-46a2-af98-edabadcd82b6",
+                    "name": "left",
+                    "id": "2f6abe0a-422f-48de-9350-49bd87f65604",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Steering",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "de4cdad8-ffe5-46ff-b010-b0ffe828d9e2",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f0cba4b3-4650-45e7-baa3-ab9bb096eabc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

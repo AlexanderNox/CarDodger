@@ -1,39 +1,33 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerInputHandler : MonoBehaviour
 {
-    private InputController _inputController;
     private PlayerMovement _playerMovement;
+    private PlayerInputMap _playerInputMap;
     private void Awake()
     {
-        _inputController = InputController.Instance;
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerInputMap = new PlayerInputMap();
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        _inputController.OnStartSteering += ctx => _playerMovement.SteeringInput = ctx;
-        // _inputController.OnPerformedSteering += StopSteeringInput;
-        _inputController.OnStartAcceleration += ctx => _playerMovement.AccelerationInput = ctx;
-        // _inputController.OnPerformedAcceleration += StopAccelerationInput;
+        _playerMovement.SetMoveVector( _playerInputMap.Player.Move.ReadValue<Vector2>());
+        if (_playerInputMap.Player.Drift.IsPressed())
+        {
+            _playerMovement.ApplyDriftMode();
+        }
     }
     
-    private void OnDisable()
+    private void OnEnable()
     {
-        _inputController.OnStartSteering -= ctx => _playerMovement.SteeringInput = ctx;
-        // _inputController.OnPerformedSteering -= StopSteeringInput;
-        _inputController.OnStartAcceleration -= ctx => _playerMovement.AccelerationInput = ctx;
-        // _inputController.OnPerformedSteering -= StopAccelerationInput;
+        _playerInputMap.Enable();
     }
 
-    // private void StopSteeringInput()
-    // {
-    //     _playerMovement.SteeringInput = 0;
-    // }
-    //
-    // private void StopAccelerationInput()
-    // {
-    //     _playerMovement.AccelerationInput = 0;
-    // }
+    private void OnDisable()
+    {
+        _playerInputMap.Disable();
+    }
 }
