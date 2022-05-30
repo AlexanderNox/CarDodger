@@ -17,7 +17,7 @@ public class PlayerInputHandler : MonoBehaviour
         _playerMovement.SetMoveVector( _playerInputMap.Player.Move.ReadValue<Vector2>());
         if (_playerInputMap.Player.Drift.IsPressed())
         {
-            _playerMovement.ApplyDriftMode();
+            _playerMovement.DriftMode = true;
         }
     }
     

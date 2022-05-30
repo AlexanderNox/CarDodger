@@ -15,9 +15,10 @@ public class FuelBarrel : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.GetComponent<Fuel>() != null)
+        if (col.TryGetComponent(out Fuel fuel))
         {
-            col.GetComponent<Fuel>().AddFuel(_fuel);
+            fuel.AddFuel(_fuel);
+            col.GetComponent<ScoreCounter>().ChangeScore(_score);
             NewBarrel();
         }
     }

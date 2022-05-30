@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Fuel : MonoBehaviour
 {
+    public event Action OnFuelOver;
     public float CurrentFuel => _currentFuel;
     public float MaxFuel => _maxFuel;
         
@@ -19,6 +21,7 @@ public class Fuel : MonoBehaviour
 
         if (_currentFuel <= 0)
         {
+            OnFuelOver?.Invoke();
             Destroy(gameObject);
         }
     }

@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    public bool DriftMode {private get;  set;}
+        
     [SerializeField] private float _defaultDriftFactor;
     [SerializeField] private float _driftFactorInDriftMode;
     [SerializeField] private float _accelerationFactor;
@@ -14,12 +16,11 @@ public class PlayerMovement : MonoBehaviour
     private float _accelerationInput;
     private float _steeringInput;
     
+    
     private float _driftFactor ;
-    private float velocityVsUp;
+    private float velocityVersusUp;
     private float _rotationAngle;
     private Rigidbody2D _playerRigidbody2D;
-
-    private bool driftMode { get; set; }
 
     void Awake()
     {
@@ -29,22 +30,22 @@ public class PlayerMovement : MonoBehaviour
     
     private void FixedUpdate()
     {
+        ApplyDriftMode();
         ApplyMoveForce();
         RemoveOrthogonalVelocity();
         ApplyRotation();
-        _driftFactor = _defaultDriftFactor;
     }
     
     private void ApplyMoveForce()
     {
-        velocityVsUp = Vector2.Dot(transform.up, _playerRigidbody2D.velocity);
+        velocityVersusUp = Vector2.Dot(transform.up, _playerRigidbody2D.velocity);
 
-        if (velocityVsUp > _maxSpeed && _accelerationInput > 0)
+        if (velocityVersusUp > _maxSpeed && _accelerationInput > 0)
         {
             return; 
         }
 
-        if (velocityVsUp < -_maxSpeed * 0.5 && _accelerationInput < 0)
+        if (velocityVersusUp < -_maxSpeed * 0.5 && _accelerationInput < 0)
         {
             return;  
         }
@@ -89,8 +90,20 @@ public class PlayerMovement : MonoBehaviour
 
     public void ApplyDriftMode()
     {
-        BrakingPlayer();
-        _driftFactor = _driftFactorInDriftMode;
+        if (DriftMode)
+        {
+            BrakingPlayer();
+            _driftFactor = _driftFactorInDriftMode;
+            
+
+        }
+        else
+        {
+            _driftFactor = _defaultDriftFactor;
+           
+        }
+
+        DriftMode = false;
     }
 
     private void BrakingPlayer()
@@ -98,11 +111,38 @@ public class PlayerMovement : MonoBehaviour
         _playerRigidbody2D.drag = Mathf.Lerp(_playerRigidbody2D.drag, _brakingDistance, Time.fixedDeltaTime * 3);
     }
     
+    public float GetVelocityMagnitude()
+    {
+        return _playerRigidbody2D.velocity.magnitude;
+    }
+    
     public void SetMoveVector(Vector2 moveVector)
     {
         _accelerationInput = moveVector.y;
         _steeringInput = moveVector.x;
     }
+    
+    private float GetLateralVelocity()
+    {
+        return Vector2.Dot(transform.right, _playerRigidbody2D.velocity);
+    }
+    
+    public bool IsTireScreeching(out float lateralVelocity, out bool isBraking)
+    {
+        lateralVelocity = GetLateralVelocity();
+        isBraking = false;
+        if (_accelerationInput < 0 && velocityVersusUp > 0)
+        {
+            isBraking = true;
+            return true;
+        }
+        if (Mathf.Abs(GetLateralVelocity()) > 4.0f)
+            return true;
+        return false;
+    }
+    
+  
+
     
     
 }

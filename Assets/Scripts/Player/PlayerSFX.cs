@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerSFX : MonoBehaviour
@@ -14,13 +15,7 @@ public class PlayerSFX : MonoBehaviour
     {
         _playerMovement = GetComponentInParent<PlayerMovement>();
     }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
         UpadateEngineSFX();
@@ -61,6 +56,15 @@ public class PlayerSFX : MonoBehaviour
         else
         {
             _tiresScreechingAudioSource.volume = Mathf.Lerp(_tiresScreechingAudioSource.volume, 0, Time.deltaTime * 10);
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.GetComponent<Attack>())
+        {
+            _palyerHitAudioSource.Play();
+            
         }
     }
 }
